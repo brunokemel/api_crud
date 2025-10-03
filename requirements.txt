@@ -1,6 +1,6 @@
 fastapi==0.115.0
 uvicorn==0.23.2
-sqlalchemy==2.0.23
+sqlalchemy==2.0.36
 pydantic==2.9.2
 pydantic-settings==2.0.3
 mysql-connector-python==8.2.0
