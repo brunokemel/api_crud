@@ -2,14 +2,30 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from app.core.config import settings
+import os
+
+# Detecta se está rodando no Render
+is_render = os.getenv("RENDER") is not None
+
+# Escolhe a URL do banco baseado no ambiente
+if is_render:
+    # No Render, usa SQLite
+    database_url = settings.SQLITE_DATABASE_URL
+    engine_kwargs = {
+        "echo": settings.DEBUG,
+        "connect_args": {"check_same_thread": False}  # Necessário para SQLite
+    }
+else:
+    # Localmente, usa MySQL
+    database_url = settings.DATABASE_URL
+    engine_kwargs = {
+        "echo": settings.DEBUG,
+        "pool_pre_ping": True,
+        "pool_recycle": 300
+    }
 
 # Criação do engine do banco de dados
-engine = create_engine(
-    settings.DATABASE_URL,
-    echo=settings.DEBUG,  # Log das queries SQL em modo debug
-    pool_pre_ping=True,   # Verifica conexões antes de usar
-    pool_recycle=300      # Recicla conexões a cada 5 minutos
-)
+engine = create_engine(database_url, **engine_kwargs)
 
 # Configuração da sessão
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

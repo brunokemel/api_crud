@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.routers import users
 from app import models, database
 
+# Cria as tabelas do banco de dados
 models.Base.metadata.create_all(bind=database.engine)
 
 # Cria a aplicação FastAPI
