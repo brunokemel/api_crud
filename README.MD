@@ -79,8 +79,14 @@ Esta é uma API REST completa desenvolvida com FastAPI, SQLAlchemy e MySQL, que 
    uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
    uvicorn app.main:app --reload
    ```
+5. **Use Python 3.12.7**(Para compatibilidade com rust https://rustup.rs/ instale localmente se necessario)
+````bash
+  py -3.12 -m venv venv    
+  > .\venv\Scripts\activate
 
-5. **Acesse a documentação interativa:**
+````
+
+6. **Acesse a documentação interativa:**
    - Swagger UI: http://127.0.0.1:8000/docs
    - ReDoc: http://127.0.0.1:8000/redoc
    - API Base: http://127.0.0.1:8000
